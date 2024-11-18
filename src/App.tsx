@@ -1,19 +1,22 @@
-import { useState } from "react";
-import LanguageModal from "./components/LanguageModal";
-import VideoPlayer from "./components/VideoPlayer";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CodePage from './pages/CodePage';
+import Home from './pages/Home';
+import { LanguageProvider } from './context/LanguageProvider';
+// import Navbar from './components/Navbar';
 
-const App = () => {
-  const [languageSelected, setLanguageSelected] = useState<string | null>(null); // აქ ვაქცევთ null მნიშვნელობას
-
+function App() {
   return (
-    <div className="wrapper">
-      {!languageSelected ? (
-        <LanguageModal setLanguageSelected={setLanguageSelected} />
-      ) : (
-        <VideoPlayer selectedLanguage={languageSelected} /> // ვაწვდით არჩეულ ენას
-      )}
-    </div>
+      <LanguageProvider>
+    <Router>
+      {/* <Navbar/> */}
+
+      <Routes>
+        <Route path="/" element={<CodePage />} />  {/* საწყისი გვერდი */}
+        <Route path="/home" element={<Home />} />   {/* Home გვერდი */}
+      </Routes>
+    </Router>
+      </LanguageProvider>
   );
-};
+}
 
 export default App;
